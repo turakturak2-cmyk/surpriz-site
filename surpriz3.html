@@ -1,0 +1,393 @@
+<!doctype html>
+<html lang="tr"><head><script>window["__codeletBootstrap__"]=JSON.parse('{"A":"A","B":"20260911-05-06910f9","C":{"Abril Fatface":"YACgEZbkUVE,0","Alfa Slab One":"YACgEYS9sJU,0","Anton":"YACgEcYqQ-A,0","Archivo":"YAHO2-t-jNE,0","Arial":"YAGyDvJ_4Ts,0","Bebas Neue":"YACgESME5ew,0","Bricolage Grotesque":"YAFyMcdwzpc,0","Canva Sans":"YAFLd8sKbwc,2","Caveat":"YALBs2ploWQ,0","Comic Sans MS":"YAHO2VMiyZo,0","Cormorant Garamond":"YAFdJhX-538,0","Courier New":"YAGzXiGs0_8,0","DM Sans":"YAD1aU3sLnI,0","DM Serif Display":"YAD1aYG82rc,0","Forum":"YACgEcnnqB4,0","Fraunces":"YAEul-FRQw4,0","Georgia":"YAGzXkO0pEM,0","Helvetica Neue":"YAFcf6CtJfI,0","Impact":"YAFcfnjI7Vk,0","Inter":"YAFdJvSyp_k,3","Iowan Old Style":"YAGNIFa8j9o,0","Jacques Francois":"YAHO2a5g66Q,0","JetBrains Mono":"YAFdJksXcAk,0","Libre Baskerville":"YACgEUFdPdA,0","Manrope":"YAHO2b2feC4,0","Merriweather":"YACgEXvHxxs,0","Montserrat":"YADLjI9qxTA,0","Nunito":"YACgEX8C5Gg,0","Oleo Script":"YACgEQQ14jI,0","Phantom Sans":"YAHO2E8Pb88,0","Playfair Display":"YACgEYmuCJE,0","Poppins":"YAFdJjbTu24,1","Press Start 2P":"YAFyGr-8pmQ,0","Quicksand":"YADWjpfPmdk,0","Raleway":"YACgEVg3xZg,0","Segoe UI":"YAHNdRD1Klw,0","Source Sans 3":"YAG4lO1Mj10,0","Spectral":"YAHO2rVUHIM,0","Times New Roman":"YAGzXW3gftg,0","Times":"YAGzXW3gftg,0","Ubuntu":"YACgERDU--Q,0","Work Sans":"YAGXhLOKv44,0","Yellowtail":"YACgEYG4kG4,0","ui-monospace":"YADlN8CFZ8Q,0","ui-sans-serif":"YACkoN-xg4g,0"}}');</script><script src="/_sdk/c21197326e9a1154.telemetry_sdk.js" integrity="sha512-Aqwl+NmLtKBcMQM4HY+W9lmBHa+zP5MqSEuYfCjkzt4xeOSv2xNz81cCp7JyXBVrY+zojg5o94FHY/R31v2d3Q=="></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ela İçin Sürpriz</title>
+  <script src="https://cdn.tailwindcss.com/3.4.17"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&amp;family=Work+Sans:wght@400;600;700&amp;display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --ink: #4a3540;
+      --rose: #c96779;
+      --deep-rose: #9e4b60;
+      --gold: #e5ad68;
+      --card: rgba(255, 250, 246, 0.84);
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      width: 100%;
+      min-height: calc(100 * min(var(--vh, 1vh), 1vh));
+      overflow-x: hidden;
+      color: var(--ink);
+      font-family: "Work Sans", sans-serif;
+    }
+
+    .surprise-app {
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      min-height: calc(100 * min(var(--vh, 1vh), 1vh));
+      padding: 24px;
+      overflow: hidden;
+    }
+
+    .surprise-app::before,
+    .surprise-app::after {
+      position: fixed;
+      z-index: 0;
+      border-radius: 999px;
+      pointer-events: none;
+      content: "";
+      filter: blur(4px);
+    }
+
+    .surprise-app::before {
+      top: -160px;
+      left: -110px;
+      width: 400px;
+      height: 400px;
+      background: rgba(244, 185, 193, 0.62);
+    }
+
+    .surprise-app::after {
+      right: -130px;
+      bottom: -130px;
+      width: 370px;
+      height: 370px;
+      background: rgba(255, 212, 150, 0.52);
+    }
+
+    .petal {
+      position: fixed;
+      z-index: 0;
+      color: rgba(197, 89, 113, 0.22);
+      pointer-events: none;
+      animation: float 7s ease-in-out infinite;
+    }
+
+    .petal.one { top: 14%; right: 8%; font-size: 38px; }
+    .petal.two { bottom: 16%; left: 6%; font-size: 30px; animation-delay: -2.5s; }
+    .petal.three { top: 47%; left: 4%; font-size: 23px; animation-delay: -4s; }
+
+    .experience-frame {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      flex-direction: column;
+      width: min(100%, 1080px);
+      min-height: min(690px, calc(100 * min(var(--vh, 1vh), 1vh) - 48px));
+      overflow: hidden;
+      border: 1px solid rgba(128, 73, 89, 0.14);
+      border-radius: 32px;
+      box-shadow: 0 24px 70px rgba(105, 58, 71, 0.18);
+      backdrop-filter: blur(12px);
+    }
+
+    .topbar {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px 26px;
+      border-bottom: 1px solid rgba(128, 73, 89, 0.1);
+    }
+
+    .brand-note {
+      margin: 0;
+      font-family: "Libre Baskerville", serif;
+      font-size: 21px;
+      font-weight: 700;
+    }
+
+    .slides-region {
+      display: flex;
+      flex: 1;
+      align-items: center;
+      justify-content: center;
+      padding: 36px;
+    }
+
+    .surprise-shell {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      text-align: center;
+    }
+
+    .surprise-card {
+      position: relative;
+      width: 100%;
+      max-width: 690px;
+      padding: 52px 42px;
+      overflow: hidden;
+      border-radius: 32px;
+      box-shadow: 0 32px 80px rgba(105, 58, 71, 0.18);
+    }
+
+    .surprise-card::before {
+      position: absolute;
+      top: 0;
+      right: 40px;
+      left: 40px;
+      height: 4px;
+      border-radius: 0 0 10px 10px;
+      background: linear-gradient(90deg, transparent, var(--gold), transparent);
+      content: "";
+      opacity: 0.75;
+    }
+
+    .seal {
+      display: grid;
+      width: 58px;
+      height: 58px;
+      margin: 0 auto 20px;
+      border-radius: 50%;
+      place-items: center;
+      box-shadow: 0 8px 22px rgba(238, 90, 90, 0.28);
+      font-size: 27px;
+    }
+
+    .eyebrow,
+    .message-kicker {
+      margin: 0 0 14px;
+      font-family: "Work Sans", sans-serif;
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+    }
+
+    .opening-title {
+      max-width: 620px;
+      margin: 0 auto;
+      font-family: "Libre Baskerville", serif;
+      font-size: clamp(42px, 7vw, 68px);
+      font-weight: 700;
+      line-height: 1.08;
+      letter-spacing: -2px;
+    }
+
+    .opening-intro {
+      max-width: 530px;
+      margin: 28px auto 0;
+      font-size: 17px;
+      line-height: 1.7;
+    }
+
+    .action-button,
+    .close-button {
+      border: 0;
+      cursor: pointer;
+      font-family: "Work Sans", sans-serif;
+      font-weight: 700;
+      transition: transform 180ms ease, filter 180ms ease, box-shadow 180ms ease, background 180ms ease;
+    }
+
+    .action-button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      margin-top: 32px;
+      padding: 15px 25px;
+      border-radius: 999px;
+      box-shadow: 0 12px 25px rgba(158, 75, 96, 0.25);
+      font-size: 16px;
+    }
+
+    .action-button::before {
+      content: "✦";
+      margin-right: 9px;
+    }
+
+    .close-button {
+      margin-top: 26px;
+      padding: 13px 21px;
+      border-radius: 999px;
+      font-size: 15px;
+    }
+
+    .close-button::before {
+      content: "↶";
+      margin-right: 7px;
+    }
+
+    .action-button:hover,
+    .close-button:hover {
+      filter: brightness(1.05);
+      transform: translateY(-3px);
+    }
+
+    .action-button:active,
+    .close-button:active { transform: scale(0.96); }
+
+    .action-button:focus-visible,
+    .close-button:focus-visible {
+      outline: 3px solid rgba(158, 75, 96, 0.35);
+      outline-offset: 5px;
+    }
+
+    .opened-content {
+      margin-top: 28px;
+      animation: reveal 520ms cubic-bezier(.18, .8, .25, 1) both;
+    }
+
+    .hidden { display: none !important; }
+
+    .message-panel {
+      padding: 26px;
+      border-left: 4px solid var(--gold);
+      border-radius: 18px;
+      text-align: left;
+    }
+
+    .message-kicker { margin-bottom: 12px; }
+
+    .message-text {
+      margin: 0;
+      font-family: "Libre Baskerville", serif;
+      font-size: clamp(21px, 3vw, 29px);
+      font-weight: 700;
+      line-height: 1.42;
+    }
+
+    .signoff {
+      margin: 22px 0 0;
+      font-family: "Libre Baskerville", serif;
+      font-size: 19px;
+      font-style: italic;
+      font-weight: 700;
+    }
+
+    .heart {
+      position: absolute;
+      bottom: 20px;
+      left: var(--x);
+      color: var(--heart-color);
+      font-size: var(--size);
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .is-celebrating .heart {
+      animation: floatHeart 1.9s ease-out var(--delay) both;
+    }
+
+    @keyframes reveal {
+      from { opacity: 0; transform: translateY(14px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0) rotate(0deg); }
+      50% { transform: translateY(-14px) rotate(12deg); }
+    }
+
+    @keyframes floatHeart {
+      0% { opacity: 0; transform: translateY(0) rotate(0deg) scale(0.5); }
+      18% { opacity: 1; }
+      100% {
+        opacity: 0;
+        transform: translateY(-320px) translateX(var(--drift)) rotate(34deg) scale(1.12);
+      }
+    }
+
+    @media (max-width: 760px) {
+      .surprise-app {
+        align-items: stretch;
+        padding: 10px;
+      }
+
+      .experience-frame {
+        min-height: calc(100 * min(var(--vh, 1vh), 1vh) - 20px);
+        border-radius: 22px;
+      }
+
+      .topbar { padding: 17px; }
+      .slides-region { padding: 18px 14px; }
+      .surprise-card { padding: 40px 20px; border-radius: 24px; }
+      .surprise-card::before { right: 22px; left: 22px; }
+      .opening-title { font-size: clamp(38px, 11vw, 58px); }
+      .opening-intro { font-size: 15px; }
+      .message-panel { padding: 21px 18px; }
+      .message-text { font-size: 21px; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        transition-duration: 0.01ms !important;
+      }
+    }
+  </style>
+  <script src="https://cdn.jsdelivr.net/npm/lucide@0.577.0/dist/umd/lucide.min.js" type="text/javascript"></script>
+  <script src="/_sdk/efe904fe8a212716.data_sdk.js" type="text/javascript" integrity="sha512-oiO0pmn5llS1uDeB2l690YywxqOe/a0U1kzY6RGaLZXtyh9YjTk1CUoK/bJUugc1QbUaJMJ3IE1MtpNY5NBZCw=="></script>
+  <script src="/_sdk/6125e8aa3c264a2d.resizing_sdk.js" type="text/javascript" integrity="sha512-+j9iK2FF/yFSTU389rFqKj3v0s1ELh1r0aj3mqpsVRZujaeWi0WgN7jmTcWLcBq91dz3NCEyXqMtHbwpOxhDYg=="></script>
+ </head>
+ <body data-template-id="__page-root" style="background: linear-gradient(135deg, rgb(255, 248, 242) 0%, rgb(249, 231, 232) 48%, rgb(247, 239, 217) 100%);">
+  <div class="surprise-app"><span class="petal one" aria-hidden="true">✦</span> <span class="petal two" aria-hidden="true">♥</span> <span class="petal three" aria-hidden="true">✦</span>
+   <div data-template-id="experience-frame" class="experience-frame canva-panel" style="background: rgba(255, 253, 249, 0.82);">
+    <header data-template-id="topbar" class="topbar canva-header" style="background: rgba(255, 253, 249, 0.35);">
+     <p data-template-id="brand-note" class="brand-note canva-text" style="color: rgb(158, 75, 96); font-weight: 700; font-style: normal; font-size: 16px;">Ela’ya küçük bir sürpriz</p>
+    </header>
+    <main class="slides-region">
+     <section class="surprise-shell" aria-label="Sürpriz kartı">
+      <section id="opening-card" data-template-id="surprise-card" class="surprise-card canva-card" style="background: rgba(255, 250, 246, 0.84);">
+       <div data-template-id="seal" class="seal canva-tag" aria-hidden="true" style="background: rgb(201, 103, 121); color: rgb(255, 255, 255);">
+        ♥
+       </div>
+       <p data-template-id="eyebrow" class="eyebrow canva-text" style="color: rgb(158, 75, 96); font-weight: 700; font-style: normal; font-size: 16px; letter-spacing: 0.18rem;">Sadece senin için</p>
+       <h1 data-template-id="opening-title" class="opening-title canva-text" style="color: rgb(74, 53, 64); font-weight: 700; font-style: normal; font-size: 32px; line-height: 1.08;">Sana küçük bir sürprizim var, Ela…</h1>
+       <div id="closed-content">
+        <p data-template-id="opening-intro" class="opening-intro canva-text" style="color: rgb(104, 85, 96); font-weight: 400; font-style: normal; font-size: 16px; line-height: 1.7;">Bugün kendine biraz daha nazik davranman için, kalbinden geçen birkaç güzel kelime bıraktım.</p><button id="open-button" data-template-id="open-button" class="action-button canva-button" type="button" style="background: rgb(158, 75, 96); color: rgb(255, 255, 255); font-weight: 700; font-style: normal; font-size: 16px;">Sürprizi Aç</button>
+       </div>
+       <div id="opened-content" class="opened-content hidden">
+        <div data-template-id="message-panel" class="message-panel canva-panel" style="background: rgb(255, 247, 244);">
+         <p data-template-id="message-kicker" class="message-kicker canva-text" style="color: rgb(158, 75, 96); font-weight: 700; font-style: normal; font-size: 16px; letter-spacing: 0.18rem;">Küçük bir hatırlatma</p>
+         <p data-template-id="message-text" class="message-text canva-text" style="color: rgb(74, 53, 64); font-weight: 700; font-style: normal; font-size: 16px; line-height: 1.42;">Sen sandığından çok daha güçlüsün. Gülüşün, emeğin ve güzel kalbin; bulunduğun her yeri biraz daha aydınlatıyor.</p>
+        </div>
+        <p data-template-id="signoff" class="signoff canva-text" style="color: rgb(158, 75, 96); font-weight: 700; font-style: italic; font-size: 16px;">İyi ki varsın. ♥</p><button id="close-button" data-template-id="close-button" class="close-button canva-button" type="button" style="background: rgb(242, 220, 224); color: rgb(125, 64, 80); font-weight: 700; font-style: normal; font-size: 16px;">Tekrar Kapat</button>
+       </div><span class="heart" style="--x:8%;--delay:0ms;--drift:-32px;--heart-color:#c96779;--size:22px;" aria-hidden="true">♥</span> <span class="heart" style="--x:22%;--delay:180ms;--drift:24px;--heart-color:#e5ad68;--size:15px;" aria-hidden="true">♥</span> <span class="heart" style="--x:42%;--delay:90ms;--drift:-10px;--heart-color:#c96779;--size:27px;" aria-hidden="true">♥</span> <span class="heart" style="--x:63%;--delay:260ms;--drift:30px;--heart-color:#c96779;--size:20px;" aria-hidden="true">♥</span> <span class="heart" style="--x:82%;--delay:50ms;--drift:-26px;--heart-color:#e5ad68;--size:15px;" aria-hidden="true">♥</span>
+      </section>
+     </section>
+    </main>
+   </div>
+  </div>
+  <script src="/_sdk/6f16dc4ffc0cf3fe.editing_sdk.js" integrity="sha512-XcGkt+MVg9QK/rlrq9umdkP9LzshVjIu+vaITjWOSFti+dqk5aHBHkCCQ/IXnnUyJtw0F+lYzvT7m4EfPrBrjg=="></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      const openingCard = document.getElementById("opening-card");
+      const closedContent = document.getElementById("closed-content");
+      const openedContent = document.getElementById("opened-content");
+      const openButton = document.getElementById("open-button");
+      const closeButton = document.getElementById("close-button");
+
+      openButton.addEventListener("click", function () {
+        closedContent.classList.add("hidden");
+        openedContent.classList.remove("hidden");
+
+        openedContent.classList.remove("opened-content");
+        void openedContent.offsetWidth;
+        openedContent.classList.add("opened-content");
+
+        openingCard.classList.remove("is-celebrating");
+        void openingCard.offsetWidth;
+        openingCard.classList.add("is-celebrating");
+
+        closeButton.focus();
+      });
+
+      closeButton.addEventListener("click", function () {
+        openedContent.classList.add("hidden");
+        closedContent.classList.remove("hidden");
+        openingCard.classList.remove("is-celebrating");
+        openButton.focus();
+      });
+    });
+  </script>
+ 
+</body></html>
