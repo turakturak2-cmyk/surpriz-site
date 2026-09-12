@@ -1,0 +1,566 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>Sana Bir Mektup 💌</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    :root {
+      --pink: #ee719c;
+      --dark-pink: #b84370;
+      --light-pink: #ffdce8;
+      --cream: #fff8f3;
+      --purple: #9b7ac7;
+      --text: #633d52;
+    }
+
+    body {
+      min-height: 100vh;
+      overflow-x: hidden;
+      font-family: Arial, sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(circle at 15% 15%, rgba(255,255,255,.75), transparent 18%),
+        radial-gradient(circle at 85% 80%, rgba(255,255,255,.55), transparent 20%),
+        linear-gradient(135deg, #ffdce8 0%, #e9ddff 52%, #fff0d1 100%);
+    }
+
+    .page {
+      position: relative;
+      width: min(94%, 850px);
+      min-height: 100vh;
+      margin: auto;
+      padding: 45px 0 70px;
+      text-align: center;
+    }
+
+    .top-note {
+      display: inline-block;
+      margin-bottom: 18px;
+      padding: 9px 17px;
+      border: 1px solid rgba(184, 67, 112, .2);
+      border-radius: 30px;
+      color: var(--dark-pink);
+      background: rgba(255,255,255,.62);
+      font-size: 13px;
+      font-weight: bold;
+      letter-spacing: .3px;
+    }
+
+    h1 {
+      margin-bottom: 15px;
+      color: var(--dark-pink);
+      font-family: Georgia, serif;
+      font-size: clamp(42px, 8vw, 75px);
+      font-weight: normal;
+      line-height: 1.1;
+    }
+
+    .subtitle {
+      max-width: 580px;
+      margin: 0 auto;
+      color: #79566b;
+      font-size: 17px;
+      line-height: 1.7;
+    }
+
+    .subtitle strong {
+      color: var(--dark-pink);
+    }
+
+    .instruction {
+      margin-top: 17px;
+      color: #ad6284;
+      font-size: 14px;
+      font-weight: bold;
+    }
+
+    /* Hareketli arka plan kalpleri */
+
+    .floating-heart {
+      position: fixed;
+      bottom: -50px;
+      z-index: 0;
+      color: rgba(206, 76, 125, .42);
+      pointer-events: none;
+      animation: rise linear forwards;
+    }
+
+    @keyframes rise {
+      0% {
+        opacity: 0;
+        transform: translateY(0) rotate(0deg) scale(.7);
+      }
+
+      15% {
+        opacity: 1;
+      }
+
+      100% {
+        opacity: 0;
+        transform: translateY(-110vh) rotate(360deg) scale(1.35);
+      }
+    }
+
+    /* Zarf alanı */
+
+    .envelope-area {
+      position: relative;
+      z-index: 2;
+      display: flex;
+      justify-content: center;
+      margin-top: 65px;
+      margin-bottom: 35px;
+    }
+
+    .envelope {
+      position: relative;
+      width: min(90vw, 430px);
+      height: 275px;
+      cursor: pointer;
+      filter: drop-shadow(0 22px 25px rgba(132, 63, 101, .2));
+      transition: transform .3s ease;
+    }
+
+    .envelope:hover {
+      transform: translateY(-8px) rotate(-1deg);
+    }
+
+    .envelope:active {
+      transform: scale(.97);
+    }
+
+    .envelope-body {
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      height: 190px;
+      border-radius: 0 0 22px 22px;
+      background: linear-gradient(145deg, #f18aaf, #d75f8b);
+      overflow: hidden;
+    }
+
+    .envelope-body::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(145deg, transparent 49%, rgba(255,255,255,.25) 50%, transparent 51%),
+        linear-gradient(35deg, transparent 49%, rgba(255,255,255,.18) 50%, transparent 51%);
+      opacity: .8;
+    }
+
+    .envelope-flap {
+      position: absolute;
+      top: 0;
+      left: 0;
+      z-index: 4;
+      width: 0;
+      height: 0;
+      border-left: min(45vw, 215px) solid transparent;
+      border-right: min(45vw, 215px) solid transparent;
+      border-top: 145px solid #f7a4bf;
+      transform-origin: top center;
+      transition: transform .8s cubic-bezier(.2,.8,.2,1);
+    }
+
+    .envelope-flap::after {
+      content: "♡";
+      position: absolute;
+      top: -116px;
+      left: -15px;
+      color: rgba(255,255,255,.75);
+      font-size: 30px;
+    }
+
+    .envelope-side-left,
+    .envelope-side-right {
+      position: absolute;
+      bottom: 0;
+      z-index: 3;
+      width: 0;
+      height: 0;
+      border-top: 95px solid transparent;
+      border-bottom: 95px solid transparent;
+    }
+
+    .envelope-side-left {
+      left: 0;
+      border-left: min(45vw, 215px) solid #e7769e;
+    }
+
+    .envelope-side-right {
+      right: 0;
+      border-right: min(45vw, 215px) solid #cb5683;
+    }
+
+    .envelope-heart {
+      position: absolute;
+      left: 50%;
+      bottom: 60px;
+      z-index: 5;
+      transform: translateX(-50%);
+      color: white;
+      font-size: 48px;
+      text-shadow: 0 4px 10px rgba(125, 38, 77, .2);
+      transition: opacity .4s ease, transform .5s ease;
+    }
+
+    .letter {
+      position: absolute;
+      left: 7%;
+      bottom: 17px;
+      z-index: 2;
+      width: 86%;
+      min-height: 220px;
+      padding: 25px 22px;
+      border-radius: 15px 15px 7px 7px;
+      color: var(--text);
+      background: var(--cream);
+      box-shadow: 0 5px 15px rgba(105, 48, 82, .16);
+      opacity: 0;
+      transform: translateY(35px);
+      transition:
+        transform .9s cubic-bezier(.2,.8,.2,1),
+        opacity .45s ease;
+    }
+
+    .letter h2 {
+      margin-bottom: 13px;
+      color: var(--dark-pink);
+      font-family: Georgia, serif;
+      font-size: 25px;
+      font-weight: normal;
+    }
+
+    .letter p {
+      font-size: 14px;
+      line-height: 1.7;
+    }
+
+    .letter-signature {
+      display: block;
+      margin-top: 12px;
+      color: var(--pink);
+      font-family: Georgia, serif;
+      font-size: 20px;
+    }
+
+    .envelope.open .envelope-flap {
+      transform: rotateX(180deg);
+      z-index: 1;
+    }
+
+    .envelope.open .letter {
+      opacity: 1;
+      transform: translateY(-125px);
+      z-index: 6;
+    }
+
+    .envelope.open .envelope-heart {
+      opacity: 0;
+      transform: translateX(-50%) scale(.5);
+    }
+
+    .open-hint {
+      position: absolute;
+      bottom: -43px;
+      width: 100%;
+      color: #a7557b;
+      font-size: 13px;
+      font-weight: bold;
+      transition: opacity .3s ease;
+    }
+
+    .envelope.open .open-hint {
+      opacity: 0;
+    }
+
+    /* Sürpriz butonu */
+
+    .surprise-button {
+      position: relative;
+      z-index: 7;
+      padding: 15px 25px;
+      border: none;
+      border-radius: 999px;
+      color: white;
+      background: linear-gradient(135deg, #d85e8c, #a978c8);
+      box-shadow: 0 10px 22px rgba(150, 75, 130, .22);
+      cursor: pointer;
+      font-size: 15px;
+      font-weight: bold;
+      transition: transform .25s ease, box-shadow .25s ease;
+    }
+
+    .surprise-button:hover {
+      box-shadow: 0 15px 28px rgba(150, 75, 130, .32);
+      transform: translateY(-4px);
+    }
+
+    .surprise-button:active {
+      transform: scale(.95);
+    }
+
+    .hidden-message {
+      position: relative;
+      z-index: 7;
+      max-width: 570px;
+      margin: 23px auto 0;
+      padding: 0 20px;
+      color: #8e5272;
+      font-family: Georgia, serif;
+      font-size: 21px;
+      line-height: 1.55;
+      opacity: 0;
+      transform: translateY(15px);
+      transition: opacity .5s ease, transform .5s ease;
+    }
+
+    .hidden-message.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .footer {
+      position: relative;
+      z-index: 2;
+      margin-top: 50px;
+      color: #856378;
+      font-size: 13px;
+      line-height: 1.7;
+    }
+
+    .footer strong {
+      color: var(--dark-pink);
+    }
+
+    /* Kalp patlaması */
+
+    .burst-heart {
+      position: fixed;
+      z-index: 20;
+      pointer-events: none;
+      font-size: 24px;
+      animation: burst 1.3s ease-out forwards;
+    }
+
+    @keyframes burst {
+      0% {
+        opacity: 1;
+        transform: translate(0, 0) scale(.5) rotate(0deg);
+      }
+
+      100% {
+        opacity: 0;
+        transform:
+          translate(var(--x), var(--y))
+          scale(1.5)
+          rotate(var(--r));
+      }
+    }
+
+    @media (max-width: 600px) {
+      .page {
+        padding-top: 30px;
+      }
+
+      .envelope-area {
+        margin-top: 55px;
+      }
+
+      .envelope {
+        height: 255px;
+      }
+
+      .envelope-body {
+        height: 175px;
+      }
+
+      .letter {
+        min-height: 205px;
+        padding: 20px 16px;
+      }
+
+      .letter h2 {
+        font-size: 22px;
+      }
+
+      .letter p {
+        font-size: 13px;
+      }
+
+      .envelope.open .letter {
+        transform: translateY(-110px);
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <main class="page">
+
+    <div class="top-note">
+      sadece sen aç diye hazırladım 💌
+    </div>
+
+    <h1>
+      Sana bir mektup var
+    </h1>
+
+    <p class="subtitle">
+      Yeni hayatına başlamadan önce sana küçük bir şey bırakmak istedim.
+      <br>
+      <strong>Zarfın üzerine tıkla.</strong> İçinde sana söylemek istediğim bir şey var 🤍
+    </p>
+
+    <p class="instruction">
+      Merak etme, bu mektup sadece sana özel ✨
+    </p>
+
+    <section class="envelope-area">
+
+      <div class="envelope" id="envelope">
+
+        <div class="letter">
+          <h2>Güzel sevgilime 🤍</h2>
+
+          <p>
+            Yeni bir başlangıca adım atıyorsun ve biliyorum,
+            içinde biraz heyecan, biraz korku ve bolca merak var.
+            <br><br>
+            Ama ne olursa olsun senin bunu başaracağına inanıyorum.
+            Çünkü sen düşündüğünden çok daha güçlü, akıllı ve özelsin.
+            <br><br>
+            Yeni hayatında ne olursa olsun, ben hep senin yanında olacağım.
+          </p>
+
+          <span class="letter-signature">
+            Seni çok seviyorum 💗
+          </span>
+        </div>
+
+        <div class="envelope-body"></div>
+        <div class="envelope-side-left"></div>
+        <div class="envelope-side-right"></div>
+        <div class="envelope-flap"></div>
+        <div class="envelope-heart">♡</div>
+
+        <div class="open-hint">
+          Açmak için zarfa tıkla ✦
+        </div>
+
+      </div>
+
+    </section>
+
+    <button class="surprise-button" id="surpriseButton">
+      Bir de buna bas 💕
+    </button>
+
+    <p class="hidden-message" id="hiddenMessage">
+      Nerede olursan ol, günün nasıl geçerse geçsin,
+      aklına geldiğimde yüzünde minicik bir gülümseme olsun.
+      Çünkü sen benim en güzel tesadüfümsün. 🫶
+    </p>
+
+    <div class="footer">
+      Bu sayfayı zor günlerinde tekrar açabilirsin.
+      <br>
+      <strong>Ben hep buradayım.</strong>
+    </div>
+
+  </main>
+
+  <script>
+    const envelope = document.getElementById("envelope");
+    const surpriseButton = document.getElementById("surpriseButton");
+    const hiddenMessage = document.getElementById("hiddenMessage");
+
+    let envelopeOpened = false;
+
+    envelope.addEventListener("click", function() {
+      envelopeOpened = !envelopeOpened;
+      envelope.classList.toggle("open");
+
+      if (envelopeOpened) {
+        createHeartBurst(window.innerWidth / 2, window.innerHeight / 2);
+      }
+    });
+
+    surpriseButton.addEventListener("click", function(event) {
+      hiddenMessage.classList.toggle("show");
+
+      const rect = event.target.getBoundingClientRect();
+      const x = rect.left + rect.width / 2;
+      const y = rect.top + rect.height / 2;
+
+      createHeartBurst(x, y);
+
+      if (hiddenMessage.classList.contains("show")) {
+        surpriseButton.textContent = "Seni çok seviyorum 💗";
+      } else {
+        surpriseButton.textContent = "Bir de buna bas 💕";
+      }
+    });
+
+    function createHeartBurst(x, y) {
+      const hearts = ["💗", "💕", "♡", "✨", "💖", "🌸"];
+
+      for (let i = 0; i < 18; i++) {
+        const heart = document.createElement("span");
+
+        heart.className = "burst-heart";
+        heart.textContent = hearts[Math.floor(Math.random() * hearts.length)];
+
+        heart.style.left = x + "px";
+        heart.style.top = y + "px";
+
+        heart.style.setProperty("--x", `${(Math.random() - .5) * 300}px`);
+        heart.style.setProperty("--y", `${(Math.random() - .5) * 250}px`);
+        heart.style.setProperty("--r", `${(Math.random() - .5) * 180}deg`);
+
+        document.body.appendChild(heart);
+
+        setTimeout(function() {
+          heart.remove();
+        }, 1400);
+      }
+    }
+
+    function createFloatingHeart() {
+      const heart = document.createElement("div");
+
+      heart.className = "floating-heart";
+      heart.textContent = Math.random() > .5 ? "♡" : "♥";
+
+      heart.style.left = Math.random() * 100 + "vw";
+      heart.style.fontSize = 14 + Math.random() * 25 + "px";
+      heart.style.animationDuration = 6 + Math.random() * 7 + "s";
+
+      document.body.appendChild(heart);
+
+      setTimeout(function() {
+        heart.remove();
+      }, 14000);
+    }
+
+    setInterval(createFloatingHeart, 900);
+
+    for (let i = 0; i < 8; i++) {
+      setTimeout(createFloatingHeart, i * 500);
+    }
+  </script>
+
+</body>
+</html>
