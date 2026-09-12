@@ -1,0 +1,508 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>Sana Küçük Bir Sürpriz 💌</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      min-height: 100vh;
+      overflow-x: hidden;
+      font-family: Arial, sans-serif;
+      color: #5d4052;
+      background:
+        radial-gradient(circle at 15% 20%, rgba(255,255,255,.7) 0 4px, transparent 5px),
+        radial-gradient(circle at 85% 75%, rgba(255,255,255,.7) 0 5px, transparent 6px),
+        linear-gradient(135deg, #ffe0eb, #f0e3ff, #fff0d8);
+      background-size: 130px 130px, 180px 180px, cover;
+    }
+
+    body::before {
+      content: "♡";
+      position: fixed;
+      top: 30px;
+      left: 30px;
+      color: rgba(210, 105, 145, .35);
+      font-size: 70px;
+      transform: rotate(-15deg);
+      animation: floating 4s ease-in-out infinite;
+    }
+
+    body::after {
+      content: "✦";
+      position: fixed;
+      right: 35px;
+      bottom: 30px;
+      color: rgba(170, 130, 215, .4);
+      font-size: 55px;
+      animation: floating 5s ease-in-out infinite reverse;
+    }
+
+    @keyframes floating {
+      0%, 100% {
+        transform: translateY(0) rotate(-10deg);
+      }
+
+      50% {
+        transform: translateY(-15px) rotate(10deg);
+      }
+    }
+
+    .container {
+      width: min(92%, 900px);
+      margin: 0 auto;
+      padding: 55px 0 70px;
+    }
+
+    .intro {
+      text-align: center;
+      margin-bottom: 36px;
+    }
+
+    .mini-title {
+      display: inline-block;
+      margin-bottom: 18px;
+      padding: 9px 17px;
+      border-radius: 30px;
+      color: #c65e89;
+      background: rgba(255,255,255,.65);
+      font-size: 13px;
+      font-weight: bold;
+    }
+
+    h1 {
+      margin-bottom: 18px;
+      color: #a64e76;
+      font-family: Georgia, serif;
+      font-size: clamp(38px, 7vw, 68px);
+      font-weight: normal;
+      line-height: 1.15;
+    }
+
+    .intro-text {
+      max-width: 600px;
+      margin: 0 auto;
+      color: #765c6b;
+      font-size: 17px;
+      line-height: 1.7;
+    }
+
+    .click-note {
+      margin-top: 18px;
+      color: #c06288;
+      font-size: 14px;
+      font-weight: bold;
+    }
+
+    .boxes {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+    }
+
+    .box {
+      min-height: 175px;
+      padding: 24px 18px;
+      border: 2px solid rgba(255,255,255,.9);
+      border-radius: 26px;
+      color: #614457;
+      background: rgba(255,255,255,.72);
+      box-shadow: 0 12px 30px rgba(116, 75, 105, .13);
+      cursor: pointer;
+      transition: transform .25s ease, box-shadow .25s ease, background .25s ease;
+    }
+
+    .box:hover {
+      background: rgba(255,255,255,.96);
+      box-shadow: 0 18px 35px rgba(116, 75, 105, .22);
+      transform: translateY(-8px) rotate(-1deg);
+    }
+
+    .box:nth-child(even):hover {
+      transform: translateY(-8px) rotate(1deg);
+    }
+
+    .box:active {
+      transform: scale(.96);
+    }
+
+    .emoji {
+      display: block;
+      margin-bottom: 14px;
+      font-size: 39px;
+    }
+
+    .box h2 {
+      margin-bottom: 9px;
+      color: #a64e76;
+      font-size: 18px;
+    }
+
+    .box p {
+      color: #806878;
+      font-size: 13px;
+      line-height: 1.5;
+    }
+
+    .tap {
+      display: block;
+      margin-top: 15px;
+      color: #c66b91;
+      font-size: 11px;
+      font-weight: bold;
+    }
+
+    .bottom-message {
+      margin-top: 38px;
+      color: #806476;
+      text-align: center;
+      font-size: 14px;
+      line-height: 1.7;
+    }
+
+    .signature {
+      display: block;
+      margin-top: 10px;
+      color: #c65d88;
+      font-family: Georgia, serif;
+      font-size: 25px;
+    }
+
+    /* Açılan pencere */
+
+    .modal {
+      position: fixed;
+      inset: 0;
+      z-index: 10;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      background: rgba(60, 35, 55, .55);
+      backdrop-filter: blur(7px);
+    }
+
+    .modal.active {
+      display: flex;
+      animation: fadeIn .25s ease;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+      }
+
+      to {
+        opacity: 1;
+      }
+    }
+
+    .modal-content {
+      position: relative;
+      width: min(100%, 560px);
+      max-height: 90vh;
+      overflow-y: auto;
+      padding: 42px 30px 32px;
+      border: 4px solid rgba(255,255,255,.85);
+      border-radius: 30px;
+      background: linear-gradient(145deg, #fff, #fff0f6);
+      box-shadow: 0 25px 70px rgba(40, 20, 40, .3);
+      text-align: center;
+      animation: pop .35s cubic-bezier(.18,.89,.32,1.28);
+    }
+
+    @keyframes pop {
+      from {
+        opacity: 0;
+        transform: scale(.75) translateY(25px);
+      }
+
+      to {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+      }
+    }
+
+    .close {
+      position: absolute;
+      top: 12px;
+      right: 14px;
+      width: 36px;
+      height: 36px;
+      border: none;
+      border-radius: 50%;
+      color: #a45276;
+      background: #fbdce9;
+      font-size: 23px;
+      cursor: pointer;
+    }
+
+    .close:hover {
+      background: #f5bfd4;
+    }
+
+    .modal-emoji {
+      margin-bottom: 14px;
+      font-size: 55px;
+    }
+
+    .modal-title {
+      margin-bottom: 18px;
+      color: #a64e76;
+      font-family: Georgia, serif;
+      font-size: 31px;
+      font-weight: normal;
+    }
+
+    .modal-text {
+      color: #654d5d;
+      font-size: 16px;
+      line-height: 1.8;
+      white-space: pre-line;
+    }
+
+    .hearts {
+      margin-top: 22px;
+      color: #d66e98;
+      font-size: 24px;
+      letter-spacing: 8px;
+    }
+
+    @media (max-width: 700px) {
+      .container {
+        width: min(92%, 520px);
+        padding-top: 35px;
+      }
+
+      .boxes {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 13px;
+      }
+
+      .box {
+        min-height: 160px;
+        padding: 19px 14px;
+        border-radius: 22px;
+      }
+
+      .emoji {
+        font-size: 31px;
+      }
+
+      .box h2 {
+        font-size: 15px;
+      }
+
+      .box p {
+        font-size: 12px;
+      }
+    }
+
+    @media (max-width: 390px) {
+      .boxes {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <main class="container">
+
+    <section class="intro">
+      <div class="mini-title">sana özel küçük bir şey hazırladım 💌</div>
+
+      <h1>
+        Yeni hayatına<br>
+        küçük bir destek paketi
+      </h1>
+
+      <p class="intro-text">
+        Yeni üniversite maceranda ne zaman ihtiyacın olursa
+        aşağıdaki kutulardan birine bas.
+        Çünkü ben, nerede olursan ol, hep senin yanındayım 🤍
+      </p>
+
+      <p class="click-note">
+        Bir kutuya bas ve içindeki mesajı aç ✨
+      </p>
+    </section>
+
+    <section class="boxes">
+
+      <button
+        class="box"
+        data-emoji="🌸"
+        data-title="İlk günün için aç"
+        data-message="İlk günün nasıl geçerse geçsin, sen bunun üstesinden geleceksin.
+
+Yeni bir yere alışmak biraz zaman alabilir. Her şey hemen mükemmel olmak zorunda değil. Sadece kendin olman yeterli.
+
+Seninle gurur duyuyorum. Hem de çok. 🤍"
+      >
+        <span class="emoji">🌸</span>
+        <h2>İlk günün için aç</h2>
+        <p>Biraz heyecanlandıysan bunu oku.</p>
+        <span class="tap">AÇMAK İÇİN BAS ✦</span>
+      </button>
+
+      <button
+        class="box"
+        data-emoji="🫶"
+        data-title="Moralin bozulunca aç"
+        data-message="Bugün kötü geçti diye her şey kötü gidiyor demek değil.
+
+Biraz dinlen, güzel bir şeyler ye ve kendine yüklenme. Elinden geleni yapıyorsun ve bu fazlasıyla yeterli.
+
+Kötü gününde de iyi gününde de seni çok seviyorum. 🫶"
+      >
+        <span class="emoji">🫶</span>
+        <h2>Moralin bozulunca aç</h2>
+        <p>Bugün biraz zor geçtiyse buradayım.</p>
+        <span class="tap">AÇMAK İÇİN BAS ✦</span>
+      </button>
+
+      <button
+        class="box"
+        data-emoji="💌"
+        data-title="Beni özleyince aç"
+        data-message="Ben de seni özlüyor olacağım.
+
+Aramızda mesafe olması seni daha az sevdiğim anlamına gelmez. Gün içinde aklıma gelen güzel şeylerde seni hatırlayacağım.
+
+Uzakta olsan da kalbimin en güzel yerindesin. 💌"
+      >
+        <span class="emoji">💌</span>
+        <h2>Beni özleyince aç</h2>
+        <p>Benden sana minicik bir sarılma.</p>
+        <span class="tap">AÇMAK İÇİN BAS ✦</span>
+      </button>
+
+      <button
+        class="box"
+        data-emoji="✨"
+        data-title="Kendine güvenemeyince aç"
+        data-message="Sen sandığından çok daha başarılı, güçlü ve özelsin.
+
+Yeni bir ortama girmek kolay değil ama sen yeni şeyler öğrenebilecek, güzel insanlar tanıyabilecek ve kendi yolunu çizebilecek birisin.
+
+Kendine benim sana inandığım kadar inan. Çünkü ben sana gerçekten çok inanıyorum. ✨"
+      >
+        <span class="emoji">✨</span>
+        <h2>Kendine güvenemeyince aç</h2>
+        <p>Bazen sana ne kadar harika olduğunu hatırlatmam gerekebilir.</p>
+        <span class="tap">AÇMAK İÇİN BAS ✦</span>
+      </button>
+
+      <button
+        class="box"
+        data-emoji="😄"
+        data-title="Gülmeye ihtiyacın varsa aç"
+        data-message="Üniversitede ilk kural:
+
+Kimse ne yaptığını tam olarak bilmiyor, herkes biliyormuş gibi davranıyor. 😌
+
+O yüzden kafana çok takma. Yanlış sınıfa girmek, yanlış kişiye el sallamak ve saçma kararlar vermek de bu maceranın bir parçası.
+
+Ama ne olursa olsun, akşam bana anlatmak zorundasın. 😄"
+      >
+        <span class="emoji">😄</span>
+        <h2>Gülmeye ihtiyacın varsa aç</h2>
+        <p>Biraz saçmalamaya ve gülmeye ne dersin?</p>
+        <span class="tap">AÇMAK İÇİN BAS ✦</span>
+      </button>
+
+      <button
+        class="box"
+        data-emoji="🎁"
+        data-title="Sürpriz kutusu"
+        data-message="Bu kutuyu açtığına göre sana en önemli şeyi söyleyeyim:
+
+Yeni hayatında ne kadar güzel şey başarırsan başar, benim gözümde zaten harikasın.
+
+Umarım bu yeni başlangıç sana bolca mutluluk, güzel anı ve başarı getirir.
+
+Seni çok seviyorum. 🤍"
+      >
+        <span class="emoji">🎁</span>
+        <h2>Sürpriz kutusu</h2>
+        <p>Burası özel bir mesaj için saklandı.</p>
+        <span class="tap">AÇMAK İÇİN BAS ✦</span>
+      </button>
+
+    </section>
+
+    <p class="bottom-message">
+      Bu sayfaya istediğin zaman geri dönebilirsin.
+      <br>
+      Özellikle zor günlerinde bir kutu açmayı unutma.
+      <span class="signature">Ben hep buradayım 🤍</span>
+    </p>
+
+  </main>
+
+  <div class="modal" id="modal">
+    <div class="modal-content">
+
+      <button class="close" id="closeButton">×</button>
+
+      <div class="modal-emoji" id="modalEmoji">💌</div>
+      <h2 class="modal-title" id="modalTitle"></h2>
+      <p class="modal-text" id="modalText"></p>
+
+      <div class="hearts">♡ ♡ ♡</div>
+
+    </div>
+  </div>
+
+  <script>
+    const boxes = document.querySelectorAll(".box");
+    const modal = document.getElementById("modal");
+    const closeButton = document.getElementById("closeButton");
+
+    const modalEmoji = document.getElementById("modalEmoji");
+    const modalTitle = document.getElementById("modalTitle");
+    const modalText = document.getElementById("modalText");
+
+    boxes.forEach(function(box) {
+      box.addEventListener("click", function() {
+        modalEmoji.textContent = box.dataset.emoji;
+        modalTitle.textContent = box.dataset.title;
+        modalText.textContent = box.dataset.message;
+
+        modal.classList.add("active");
+        document.body.style.overflow = "hidden";
+      });
+    });
+
+    function closeModal() {
+      modal.classList.remove("active");
+      document.body.style.overflow = "";
+    }
+
+    closeButton.addEventListener("click", closeModal);
+
+    modal.addEventListener("click", function(event) {
+      if (event.target === modal) {
+        closeModal();
+      }
+    });
+
+    document.addEventListener("keydown", function(event) {
+      if (event.key === "Escape") {
+        closeModal();
+      }
+    });
+  </script>
+
+</body>
+</html>
